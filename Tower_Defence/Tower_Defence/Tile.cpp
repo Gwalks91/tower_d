@@ -8,7 +8,7 @@ Tile::Tile()
 	boundingRect(new sf::IntRect(positionX, positionY, width, height))
 {
 	makeSprite();
-	tImage->setPosition(positionX, positionY);
+	tImage->setPosition(positionX + offsetX, positionY + offsetY);
 }
 
 Tile::Tile(int TileNum, int posX, int posY)
@@ -18,7 +18,7 @@ Tile::Tile(int TileNum, int posX, int posY)
 	boundingRect(new sf::IntRect(positionX, positionY, width, height))
 {
 	makeSprite();
-	tImage->setPosition(positionX, positionY);
+	tImage->setPosition(positionX + offsetX, positionY + offsetY);
 }
 
 Tile::~Tile()
@@ -32,10 +32,15 @@ Makes the tile sprite by checking the tileNumber
 */
 void Tile::makeSprite()
 {
-	if(tileNum < TileSheetRows * TileSheetCols)
+	if( tileNum == -999)
+	{
+		tImage = new sf::Sprite((*txtMap->at("Blank")));
+		tImage->setTextureRect(sf::IntRect(0,0,TILE_WIDTH, TILE_HEIGHT));
+	}
+	else
 	{
 		tImage = new sf::Sprite((*txtMap->at("Tiles")));
-		if(tileNum == 0)
+		if(tileNum == 0 || tileNum == -1 || tileNum == -2)
 			tImage->setTextureRect(sf::IntRect(0,0,TILE_WIDTH, TILE_HEIGHT));
 		else
 		{
@@ -43,10 +48,7 @@ void Tile::makeSprite()
 				TILE_WIDTH * (tileNum / TileSheetRows),TILE_WIDTH, TILE_HEIGHT));
 		}
 	}
-	else
-	{
-		std::cout << "The tile type you are typing to make does not have a texture mapped to it!" << std::endl;
-	}
+
 }
 
 //Changes the tile to see if a player can place a tower on it.
@@ -55,8 +57,13 @@ void Tile::setCanPlaceOn()
 	canPlaceOn = !canPlaceOn;
 }
 
+void Tile::setWalkable()
+{
+	walkable = !walkable;
+}
+
 //Used for A* to check and see if it part of the usable path
-bool Tile::checkWalkable()
+bool Tile::getWalkable()
 {
 	return walkable;
 }
@@ -68,8 +75,9 @@ sf::IntRect Tile::getRect()
 
 void Tile::update(float deltaTime)
 {
-
+	tImage->setPosition(positionX + offsetX, positionY + offsetY);
 }
+
 void Tile::draw(sf::RenderWindow* window)
 {
 	window->draw(*tImage);

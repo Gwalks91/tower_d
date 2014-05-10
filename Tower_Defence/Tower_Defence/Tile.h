@@ -8,7 +8,7 @@
 
 #include "Globals.h"
 
-class Tile
+class Tile 
 {
 private:
 	int tileNum;
@@ -30,7 +30,8 @@ public:
 	Tile(int TileNum, int posX, int posY);
 	~Tile();
 	void setCanPlaceOn();
-	bool checkWalkable();
+	void setWalkable();
+	bool getWalkable();
 	sf::IntRect getRect();
 	void update(float deltaTime);
 	void draw(sf::RenderWindow* window);
