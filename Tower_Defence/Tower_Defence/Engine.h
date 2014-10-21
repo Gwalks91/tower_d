@@ -4,7 +4,6 @@
 
 #include <SFML\Graphics.hpp>
 
-//#include "Globals.h"
 #include "TileMap.h"
 
 class Engine
@@ -12,7 +11,7 @@ class Engine
 private:
 	sf::Clock gameClock;
 	
-	TileMap* tileMap;
+	std::shared_ptr<TileMap> tileMap;
 
 	float deltaTime;
 public:

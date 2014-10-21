@@ -11,7 +11,8 @@ int offsetY = 0;
 int offsetdx = 10;
 int offsetdy = 10;
 
-TextureMap* txtMap = new TextureMap();
+std::shared_ptr<TextureMap> txtMap(new TextureMap());
+std::shared_ptr<EnemyTextures> enemyMap(new EnemyTextures());
 
 int TileSheetRows = 2;
 int TileSheetCols = 2;
@@ -36,12 +37,13 @@ void Tokenize(const std::string& str,
     }
 }
 
-void AddTexture(std::string txtPath, std::string key)
+void AddTextureToTileTxtMap(std::string txtPath, std::string key)
 {
-	sf::Texture* tempText = new sf::Texture();
+	std::shared_ptr<sf::Texture> tempText(new sf::Texture());
 	if(!(*tempText).loadFromFile(txtPath))
 	{
 		std::cout << " texture was not loaded!" << std::endl;
 	}
 	txtMap->insert(MapPair(key, tempText));
 }
+

@@ -23,8 +23,6 @@ Tile::Tile(int TileNum, int posX, int posY)
 
 Tile::~Tile()
 {
-	delete boundingRect;
-	delete tImage;
 }
 
 /*
@@ -34,12 +32,12 @@ void Tile::makeSprite()
 {
 	if( tileNum == -999)
 	{
-		tImage = new sf::Sprite((*txtMap->at("Blank")));
+		tImage = SpritePtr(new sf::Sprite(*txtMap->at("Blank")));
 		tImage->setTextureRect(sf::IntRect(0,0,TILE_WIDTH, TILE_HEIGHT));
 	}
 	else
 	{
-		tImage = new sf::Sprite((*txtMap->at("Tiles")));
+		tImage = SpritePtr(new sf::Sprite(*txtMap->at("Tiles")));
 		if(tileNum == 0 || tileNum == -1 || tileNum == -2)
 			tImage->setTextureRect(sf::IntRect(0,0,TILE_WIDTH, TILE_HEIGHT));
 		else

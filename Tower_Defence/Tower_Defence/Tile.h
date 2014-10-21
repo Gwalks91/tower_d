@@ -7,8 +7,9 @@
 #include <SFML/Graphics.hpp>
 
 #include "Globals.h"
+#include "ClickableObject.h"
 
-class Tile 
+class Tile
 {
 private:
 	int tileNum;
@@ -20,9 +21,9 @@ private:
 	bool canPlaceOn;
 	bool walkable;
 
-	sf::IntRect* boundingRect;
+	RectPtr boundingRect;
 
-	sf::Sprite* tImage;
+	SpritePtr tImage;
 
 	void makeSprite();
 public:

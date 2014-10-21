@@ -6,30 +6,28 @@
 #include <SFML/Graphics.hpp>
 
 #include "Globals.h"
-#include "Engine.h"
+#include "GlobalEngine.h"
+
 
 int main()
 {
-	Engine* eng = new Engine();
+	engine = new Engine();
 
-    while (eng->window->isOpen())
+    while (engine->window->isOpen())
     {
         sf::Event event;
-        while (eng->window->pollEvent(event))
+        while (engine->window->pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
-                eng->window->close();
+                engine->window->close();
         }
 
-		eng->handleInput();
-		eng->update();
-		eng->draw();
+		engine->handleInput();
+		engine->update();
+		engine->draw();
 
     }
-	delete eng;
-
-	delete txtMap->at("Tiles");
-	delete txtMap->at("Blank");
+	delete engine;
 
     return 0;
 }

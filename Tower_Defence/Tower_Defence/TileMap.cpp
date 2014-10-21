@@ -9,14 +9,6 @@ TileMap::TileMap()
 TileMap::~TileMap()
 {
 	
-	for(int i = 0; i < rows; i++)
-	{
-		for (int j = 0; j < cols; j++)
-		{
-			delete tileMap[i][j];
-		}
-	}
-	
 }
 
 
@@ -39,8 +31,8 @@ void TileMap::LoadTileMap()
 	TileSheetRows = atoi(token[4].c_str());
 	TileSheetCols = atoi(token[5].c_str());
 
-	AddTexture("Images/" + token[6], "Tiles");	
-	AddTexture("Images/Blank.png", "Blank");
+	AddTextureToTileTxtMap("Images/" + token[6], "Tiles");	
+	AddTextureToTileTxtMap("Images/Blank.png", "Blank");
 
 	mapWidth = TILE_WIDTH * atoi(token[1].c_str());
 	mapHeight = TILE_HEIGHT * atoi(token[0].c_str());
@@ -53,7 +45,7 @@ void TileMap::LoadTileMap()
 		Tokenize(str, token);
 		for(int i = 0; i < token.size(); i++)
 		{
-			tileMap[currentRow][i] = new Tile(atoi(token[i].c_str()), i * TILE_HEIGHT, currentRow * TILE_WIDTH );
+			tileMap[currentRow][i] = std::shared_ptr<Tile>(new Tile(atoi(token[i].c_str()), i * TILE_HEIGHT, currentRow * TILE_WIDTH ));
 		}
 		currentRow++;
 		token.clear();

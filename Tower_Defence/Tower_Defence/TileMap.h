@@ -14,7 +14,7 @@ class TileMap
 private:
 	std::string str;
 	std::ifstream level;
-	Tile* tileMap[20][20];
+	std::shared_ptr<Tile> tileMap[20][20];
 
 	int mapWidth;
 	int mapHeight;

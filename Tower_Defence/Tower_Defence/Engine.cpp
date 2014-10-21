@@ -11,7 +11,8 @@ Engine::Engine()
 
 Engine::~Engine()
 {
-	delete tileMap;
+	delete window;
+
 }
 
 void Engine::handleInput()
